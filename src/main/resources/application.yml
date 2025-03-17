@@ -1,0 +1,19 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: rhino-mcp-server
+
+logging:
+  level:
+    com.rhino: DEBUG
+    root: INFO
+
+rhino:
+  connection:
+    host: localhost
+    port: 8081
+    timeout: 5000
+  commands:
+    default-timeout: 30000 
