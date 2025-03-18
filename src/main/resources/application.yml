@@ -1,14 +1,42 @@
 server:
   port: 8080
+  shutdown: graceful
+  tomcat:
+    max-threads: 200
+    min-spare-threads: 20
+    max-connections: 8192
+    accept-count: 100
+    connection-timeout: 5000
 
 spring:
   application:
     name: rhino-mcp-server
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+    serialization:
+      write-dates-as-timestamps: false
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 100MB
 
 logging:
   level:
     com.rhino: DEBUG
     root: INFO
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+  file:
+    name: logs/rhino-mcp-server.log
+  logback:
+    rollingpolicy:
+      max-file-size: 10MB
+      max-history: 30
 
 rhino:
   connection:
@@ -16,4 +44,14 @@ rhino:
     port: 8081
     timeout: 5000
   commands:
-    default-timeout: 30000 
+    default-timeout: 30000
+
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    operations-sorter: method
+    tags-sorter: alpha
+    try-it-out-enabled: true
+    filter: true 
